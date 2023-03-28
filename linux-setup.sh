@@ -21,8 +21,14 @@ fi
 # install apps
 echo "Installing basic apps"
 sudo apt remove konqueror
-sudo apt install -y flatpak gparted qemu-kvm virt-manager virtinst libvirt-clients \
-     bridge-utils libvirt-daemon-system  chromium unrar-free
+
+INSTALL_VIRT_UTILS=$(get_config_value "$CONFIG_FILE" "INSTALL_VIRT_UTILS")
+if [[ -n  "$INSTALL_VIRT_UTILS" ]]; then
+    sudo apt install -y flatpak gparted qemu-kvm virt-manager virtinst libvirt-clients \
+         bridge-utils libvirt-daemon-system   
+fi
+
+sudo apt install -y unrar-free chromium
 
 echo "Installing flatpak apps"
 flatpak install -y flathub com.visualstudio.code
