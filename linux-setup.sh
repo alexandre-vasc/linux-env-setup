@@ -28,11 +28,12 @@ if [[ -n  "$INSTALL_VIRT_UTILS" ]]; then
          bridge-utils libvirt-daemon-system   
 fi
 
-sudo apt install -y unrar-free chromium
+sudo apt install -y unrar-free chromium pip
+sudo apt autoremove -y
 
-echo "Installing flatpak apps"
-flatpak install -y flathub com.visualstudio.code
-flatpak install -y flathub com.bitwarden.desktop
+#echo "Installing flatpak apps"
+#flatpak install -y flathub com.visualstudio.code
+#flatpak install -y flathub com.bitwarden.desktop
 
 ## note: chrome on flatpak is not hardware accelerated
 #flatpak install -y flathub org.chromium.Chromium
@@ -51,7 +52,7 @@ fi
 AUTODELETE_FILES_ON_DOWLOAD_AFTER_DAYS=$(get_config_value "$CONFIG_FILE" "AUTODELETE_FILES_ON_DOWLOAD_AFTER_DAYS")
 if [[ -n  "$AUTODELETE_FILES_ON_DOWLOAD_AFTER_DAYS" ]]; then
     sudo apt install -y trash-cli
-    (crontab -l ; echo "0 0 * * 0 find ~/Downloads -depth -type f -mtime +$AUTODELETE_FILES_ON_DOWLOAD_AFTER_DAYS -exec trash {} \;") | crontab -
+    (crontab -l ; echo "0 0 * * 0 find ~/Downloads/ -depth -type f -mtime +$AUTODELETE_FILES_ON_DOWLOAD_AFTER_DAYS -exec trash {} \;") | crontab -
 else
     echo "not configuring trash download folder cron job as AUTODELETE_FILES_ON_DOWLOAD_AFTER_DAYS is not set"
 fi
