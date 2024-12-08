@@ -14,13 +14,13 @@ CONFIG_FILE=$1
 if [ $# -gt 0 ]; then
     echo "Config file is $1"
 else
-    echo "config file not set. Run as $0 config-file.conf"
+    echo "config file not set. with as $0 config-file.conf"
     exit 1
 fi
 
 # install apps
 echo "Installing basic apps"
-sudo apt remove konqueror
+sudo apt remove konqueror speech-dispatcher
 
 INSTALL_VIRT_UTILS=$(get_config_value "$CONFIG_FILE" "INSTALL_VIRT_UTILS")
 if [[ -n  "$INSTALL_VIRT_UTILS" ]]; then
@@ -29,7 +29,7 @@ if [[ -n  "$INSTALL_VIRT_UTILS" ]]; then
 fi
 
 sudo apt install -y unrar-free chromium pip
-sudo apt autoremove -y
+
 
 #echo "Installing flatpak apps"
 #flatpak install -y flathub com.visualstudio.code
@@ -95,3 +95,6 @@ else
     echo "not configuring swap file as SWAP_FILE_SIZE or SWAP_FILE_PATH are not set"
     echo "SWAP_FILE_SIZE: $SWAP_FILE_SIZE, SWAP_FILE_PATH: $SWAP_FILE_PATH"
 fi
+
+
+sudo apt autoremove -y

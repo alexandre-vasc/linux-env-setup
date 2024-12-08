@@ -1,0 +1,6 @@
+# grub configuration file to add Reboot to UEFI Firmware Settings menu entry
+# should be on /etc/grub.d/40_custom
+
+menuentry "Reboot to UEFI Firmware Settings" {
+    fwsetup
+}
